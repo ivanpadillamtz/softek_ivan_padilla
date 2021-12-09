@@ -1,0 +1,70 @@
+-- Ejercicio 1
+SELECT FullName, City 
+FROM EmployeeDetails
+JOIN EmployeeSalary ON EmployeeDetails.EmpId = EmployeeSalary.EmpId
+WHERE Project=='P1';
+
+-- Ejercicio 2
+UPDATE C
+SET C.Variable = 1500
+FROM EmployeeSalary C
+JOIN EmployeeDetails O ON C.EmpId = O.EmpId;
+WHERE O.City == 'San Francisco';
+
+-- Ejercicio 3
+SELECT FullName, (Salary + Variable)
+FROM EmployeeDetails
+JOIN EmployeeSalary ON EmployeeDetails.EmpId = EmployeeSalary.EmpId;
+
+-- Ejercicio 4
+CREATE TABLE Workers (
+  WORKER_ID TEXT PRIMARY KEY,
+  FIRST_NAME TEXT,
+  LAST_NAME TEXT,
+  SALARY INTEGER,
+  JOINING_DATE datetime,
+  DEPARTMENT TEXT
+);
+
+INSERT INTO Workers VALUES ('001', 'Monika', 'Arora', 100000, '2014-02-20 09:00:00', 'HR');
+INSERT INTO Workers VALUES ('002', 'Niharika', 'Verma', 80000, '2014-06-11 09:00:00', 'Admin');
+INSERT INTO Workers VALUES ('003', 'Vishal', 'Singhai', 300000, '2014-02-20 09:00:00', 'Engineering');
+INSERT INTO Workers VALUES ('004', 'Amitabh', 'Singh', 500000, '2014-02-20 09:00:00', 'Account');
+INSERT INTO Workers VALUES ('005', 'Vishant', 'Kumar', 450000, '2015-02-01 09:00:00', 'Engineering');
+
+CREATE TABLE Worker_Bonus (
+  WORKER_REF_ID TEXT PRIMARY KEY,
+  BONUS_DATE datetime,
+  BONUS_AMOUNT INTEGER
+);
+
+INSERT INTO Worker_Bonus VALUES ('001', '2016-02-20 00:00:00', 5000);
+INSERT INTO Worker_Bonus VALUES ('002', '2016-06-11 00:00:00', 3000);
+INSERT INTO Worker_Bonus VALUES ('003', '2016-02-20 00:00:00', 4000);
+
+-- Ejercicio 5
+SELECT DISTINCT DEPARTMENT
+FROM Workers;
+
+-- Ejercicio 6
+SELECT FIRST_NAME, LAST_NAME,
+FIRST_NAME||' '||LAST_NAME AS FULL_NAME
+FROM Workers;
+
+-- Ejercicio 7
+SELECT FIRST_NAME, LAST_NAME,
+FIRST_NAME||' '||LAST_NAME AS FULL_NAME
+FROM Workers
+WHERE SALARY between 300000 AND 500000;
+
+-- Ejercicio 8
+SELECT FIRST_NAME
+FROM Workers
+JOIN Worker_Bonus ON Workers.WORKER_ID = Worker_Bonus.WORKER_REF_ID
+WHERE BONUS_AMOUNT==5000;
+
+-- Ejercicio 9
+SELECT SALARY
+FROM Workers
+WHERE ROWNUM == 2
+order by SALARY DESC;
